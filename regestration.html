@@ -3,252 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Registration Form</title>
-    
-    <!-- CSS Styles -->
+    <title>University Admission Portal</title>
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+            --error: #ef4444;
+            --focus-ring: rgba(37, 99, 235, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background-color: #f4f7f6;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
-        .form-container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .form-card {
+            background-color: var(--bg-card);
             width: 100%;
-            max-width: 500px;
+            max-width: 750px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
 
-        h2 {
+        .header {
             text-align: center;
-            margin-bottom: 25px;
-            color: #333333;
+            margin-bottom: 35px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 20px;
+        }
+
+        .header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary);
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: #e2e8f0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .full-width {
+            grid-column: span 2;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555555;
-            font-weight: 600;
             font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #334155;
         }
 
         input[type="text"],
         input[type="email"],
         input[type="tel"],
         input[type="date"],
-        select {
+        select,
+        textarea {
             width: 100%;
-            padding: 10px 14px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
+            padding: 11px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
             font-size: 15px;
+            color: var(--text-dark);
+            background-color: #fff;
             outline: none;
-            transition: border-color 0.3s ease;
+            transition: all 0.2s ease;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
         }
 
         input:focus,
-        select:focus {
-            border-color: #007bff;
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--focus-ring);
         }
 
-        .radio-group {
+        .radio-checkbox-group {
             display: flex;
-            gap: 15px;
-            padding-top: 5px;
+            gap: 20px;
+            padding: 8px 0;
         }
 
-        .radio-group label {
-            font-weight: normal;
+        .radio-checkbox-group label {
+            font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            font-size: 15px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .btn-container {
+            margin-top: 35px;
         }
 
         .submit-btn {
             width: 100%;
-            background-color: #007bff;
+            background-color: var(--primary);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             font-size: 16px;
             font-weight: 600;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
         }
 
         .submit-btn:hover {
-            background-color: #0056b3;
+            background-color: var(--primary-hover);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
         }
 
         .error-msg {
-            color: #dc3545;
+            color: var(--error);
             font-size: 12px;
-            margin-top: 5px;
-            display: block;
-            min-height: 15px;
+            margin-top: 4px;
+            font-weight: 500;
+            min-height: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .form-card {
+                padding: 24px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="form-container">
-        <h2>College Admission Registration</h2>
-        <form id="registrationForm">
-            <!-- Full Name -->
-            <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
-                <span class="error-msg" id="nameError"></span>
-            </div>
+    <div class="form-card">
+        <div class="header">
+            <h2>College Registration Form</h2>
+            <p>Please provide precise details to process your admission application.</p>
+        </div>
 
-            <!-- Email Address -->
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="example@domain.com">
-                <span class="error-msg" id="emailError"></span>
-            </div>
-
-            <!-- Phone Number -->
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number">
-                <span class="error-msg" id="phoneError"></span>
-            </div>
-
-            <!-- Date of Birth -->
-            <div class="form-group">
-                <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob">
-                <span class="error-msg" id="dobError"></span>
-            </div>
-
-            <!-- Gender -->
-            <div class="form-group">
-                <label>Gender</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="gender" value="Male"> Male</label>
-                    <label><input type="radio" name="gender" value="Female"> Female</label>
-                    <label><input type="radio" name="gender" value="Other"> Other</label>
-                </div>
-                <span class="error-msg" id="genderError"></span>
-            </div>
-
-            <!-- Course Selection -->
-            <div class="form-group">
-                <label for="course">Preferred Course</label>
-                <select id="course" name="course">
-                    <option value="">Select a Course</option>
-                    <option value="cs">Computer Science & Engineering</option>
-                    <option value="it">Information Technology</option>
-                    <option value="ece">Electronics & Communication</option>
-                    <option value="me">Mechanical Engineering</option>
-                    <option value="ba">Business Administration</option>
-                </select>
-                <span class="error-msg" id="courseError"></span>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Submit Application</button>
-        </form>
-    </div>
-
-    <!-- JavaScript Validation -->
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent standard page reload behavior
+        <form id="admissionForm" novalidate>
             
-            // Reset previous errors
-            clearErrors();
+            <!-- Section 1: Personal Details -->
+            <div class="section-title">Personal Details</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="First, middle, and last name">
+                    <span class="error-msg" id="nameError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob">
+                    <span class="error-msg" id="dobError"></span>
+                </div>
 
-            let isValid = true;
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="radio-checkbox-group">
+                        <label><input type="radio" name="gender" value="Male"> Male</label>
+                        <label><input type="radio" name="gender" value="Female"> Female</label>
+                        <label><input type="radio" name="gender" value="Other"> Other</label>
+                    </div>
+                    <span class="error-msg" id="genderError"></span>
+                </div>
 
-            // Field references
-            const fullName = document.getElementById('fullName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const dob = document.getElementById('dob').value;
-            const gender = document.querySelector('input[name="gender"]:checked');
-            const course = document.getElementById('course').value;
+                <div class="form-group">
+                    <label for="bloodGroup">Blood Group</label>
+                    <select id="bloodGroup">
+                        <option value="">Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                    <span class="error-msg" id="bloodError"></span>
+                </div>
+            </div>
 
-            // Name validation
-            if (fullName === '') {
-                showError('nameError', 'Full name is required.');
-                isValid = false;
-            }
+            <!-- Section 2: Contact Information -->
+            <div class="section-title">Contact Information</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="student@example.com">
+                    <span class="error-msg" id="emailError"></span>
+                </div>
 
-            // Email validation
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (email === '') {
-                showError('emailError', 'Email address is required.');
-                isValid = false;
-            } else if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="10-digit mobile number">
+                    <span class="error-msg" id="phoneError"></span>
+                </div>
 
-            // Phone validation
-            const phonePattern = /^\d{10}$/;
-            if (phone === '') {
-                showError('phoneError', 'Phone number is required.');
-                isValid = false;
-            } else if (!phonePattern.test(phone)) {
-                showError('phoneError', 'Please enter a valid 10-digit mobile number.');
-                isValid = false;
-            }
+                <div class="form-group full-width">
+                    <label for="address">Residential Address</label>
+                    <textarea id="address" placeholder="Flat/House No., Building, Street Name, Locality"></textarea>
+                    <span class="error-msg" id="addressError"></span>
+                </div>
 
-            // Date of Birth validation
-            if (dob === '') {
-                showError('dobError', 'Date of birth is required.');
-                isValid = false;
-            }
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" placeholder="e.g. Mumbai">
+                    <span class="error-msg" id="cityError"></span>
+                </div>
 
-            // Gender validation
-            if (!gender) {
-                showError('genderError', 'Please select your gender.');
-                isValid = false;
-            }
+                <div class="form-group">
+                    <label for="pincode">Pin Code / Postal Code</label>
+                    <input type="text" id="pincode" placeholder="6-digit code">
+                    <span class="error-msg" id="pincodeError"></span>
+                </div>
+            </div>
 
-            // Course validation
-            if (course === '') {
-                showError('courseError', 'Please select a preferred course.');
-                isValid = false;
-            }
+            <!-- Section 3: Academic Preferences -->
+            <div class="section-title">Academic & Background</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="course">Preferred Program</label>
+                    <select id="course">
+                        <option value="">Select Program</option>
+                        <option value="BTech-CS">B.Tech Computer Science</option>
+                        <option value="BTech-IT">B.Tech Information Technology</option>
+                        <option value="BSc-Data">B.Sc Data Science</option>
+                        <option value="BBA">BBA (Marketing/Finance)</option>
+                        <option value="BCom">B.Com Honors</option>
+                    </select>
+                    <span class="error-msg" id="courseError"></span>
+                </div>
 
-            // Success Actions
-            if (isValid) {
-                alert('Registration Form Submitted Successfully!');
-                document.getElementById('registrationForm').reset();
-            }
-        });
-
-        function showError(elementId, message) {
-            document.getElementById(elementId).innerText = message;
-        }
-
-        function clearErrors() {
-            const errorElements = document.querySelectorAll('.error-msg');
-            errorElements.forEach(element => element.innerText = '');
-        }
-    </script>
-</body>
-</html>
+                <div class="form-group">
+                    <label for="passingYear">Year of Passing (High School)</label>
