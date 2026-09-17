@@ -1,55 +1,162 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>College Registration Form</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #007bff;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            padding-top: 5px;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .error-msg {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+            min-height: 15px;
+        }
+    </style>
 </head>
 <body>
+
     <div class="form-container">
-        <h2>College Registration Form</h2>
+        <h2>College Admission Registration</h2>
         <form id="registrationForm">
             <!-- Full Name -->
             <div class="form-group">
                 <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" placeholder="Enter your full name" required>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+                <span class="error-msg" id="nameError"></span>
             </div>
 
             <!-- Email Address -->
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
+                <input type="email" id="email" name="email" placeholder="example@domain.com">
+                <span class="error-msg" id="emailError"></span>
             </div>
 
             <!-- Phone Number -->
             <div class="form-group">
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" placeholder="10-digit mobile number" required>
+                <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number">
+                <span class="error-msg" id="phoneError"></span>
             </div>
 
-            <!-- Date of Birth & Gender row -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" required>
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob">
+                <span class="error-msg" id="dobError"></span>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="Male"> Male</label>
+                    <label><input type="radio" name="gender" value="Female"> Female</label>
+                    <label><input type="radio" name="gender" value="Other"> Other</label>
                 </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select id="gender" required>
-                        <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
+                <span class="error-msg" id="genderError"></span>
             </div>
 
             <!-- Course Selection -->
             <div class="form-group">
-                <label for="course">Course / Department</label>
-                <select id="course" required>
+                <label for="course">Preferred Course</label>
+                <select id="course" name="course">
                     <option value="">Select a Course</option>
                     <option value="cs">Computer Science & Engineering</option>
                     <option value="it">Information Technology</option>
@@ -57,25 +164,91 @@
                     <option value="me">Mechanical Engineering</option>
                     <option value="ba">Business Administration</option>
                 </select>
-            </div>
-
-            <!-- Password & Confirm Password -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Create password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" placeholder="Confirm password" required>
-                </div>
+                <span class="error-msg" id="courseError"></span>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Register Student</button>
+            <button type="submit" class="submit-btn">Submit Application</button>
         </form>
     </div>
 
-    <script src="script.js"></script>
+    <!-- JavaScript Validation -->
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent standard page reload behavior
+            
+            // Reset previous errors
+            clearErrors();
+
+            let isValid = true;
+
+            // Field references
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const dob = document.getElementById('dob').value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const course = document.getElementById('course').value;
+
+            // Name validation
+            if (fullName === '') {
+                showError('nameError', 'Full name is required.');
+                isValid = false;
+            }
+
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === '') {
+                showError('emailError', 'Email address is required.');
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            // Phone validation
+            const phonePattern = /^\d{10}$/;
+            if (phone === '') {
+                showError('phoneError', 'Phone number is required.');
+                isValid = false;
+            } else if (!phonePattern.test(phone)) {
+                showError('phoneError', 'Please enter a valid 10-digit mobile number.');
+                isValid = false;
+            }
+
+            // Date of Birth validation
+            if (dob === '') {
+                showError('dobError', 'Date of birth is required.');
+                isValid = false;
+            }
+
+            // Gender validation
+            if (!gender) {
+                showError('genderError', 'Please select your gender.');
+                isValid = false;
+            }
+
+            // Course validation
+            if (course === '') {
+                showError('courseError', 'Please select a preferred course.');
+                isValid = false;
+            }
+
+            // Success Actions
+            if (isValid) {
+                alert('Registration Form Submitted Successfully!');
+                document.getElementById('registrationForm').reset();
+            }
+        });
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).innerText = message;
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error-msg');
+            errorElements.forEach(element => element.innerText = '');
+        }
+    </script>
 </body>
 </html>
